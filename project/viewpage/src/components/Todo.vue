@@ -3,6 +3,9 @@
     <Tag color="primary" class="title">
       TODO
     </Tag>
+    <Input v-model="text" maxlength="100" show-word-limit type="textarea" placeholder="Enter something..."
+      style="width: 400px" />
+    <Button @click="addText">添加</Button>
     <Card v-for="item in list" :key="item._id" class="card">
       <p slot="title">
         {{item.updated_at}}
@@ -22,12 +25,33 @@ export default {
     return {
       name: 'Todolist',
       list: [],
+      text: ''
     }
   },
   mounted() {
     this.queryList()
   },
   methods: {
+    addText() {
+      if (this.text != '') {
+        this.$http.post('http://localhost:3000/create', { content: this.text }, {
+          header: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+          }
+        }).then((res) => {
+          console.log(res)
+          this.queryList();
+        })
+      } else {
+        // eslint-disable-nextline no-undef
+        this.$Message['warning']({
+          background: true,
+          content: '内容不能为空'
+        });
+      }
+    },
     delTtem(id) {
       this.$http.get(`http://localhost:3000/destroy?id=${id}`).then((res) => {
         console.log(res)

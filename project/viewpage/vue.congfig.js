@@ -2,8 +2,8 @@ module.exports = {
   dev: {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    host: '172.16.128.65', // can be overwritten by process.env.HOST
-    port: 3000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: 'localhost', // can be overwritten by process.env.HOST
+    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
