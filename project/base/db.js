@@ -1,5 +1,8 @@
 var mongoose = require("mongoose"); //引入mongoose
-mongoose.connect('mongodb://127.0.0.1:27017/myblog'); //连接到mongoDB的todo数据库
+mongoose.connect('mongodb://127.0.0.1:27017/myblog', {
+    useCreateIndex: true,
+    useNewUrlParser: true
+}); //连接到mongoDB的todo数据库
 //该地址格式：mongodb://[username:password@]host:port/database[?options]
 //默认port为27017 
 
@@ -12,12 +15,3 @@ db.once('open', function callback() { //监听一次打开
     console.log('connected!');
 });
 
-
-var ListSchema = new mongoose.Schema({
-    user_id: String, //定义一个属性user_id，类型为String
-    content: String, //定义一个属性content，类型为String
-    updated_at: Date //定义一个属性updated_at，类型为Date
-});
- 
-mongoose.model('user', ListSchema);
-module.exports = mongoose;
